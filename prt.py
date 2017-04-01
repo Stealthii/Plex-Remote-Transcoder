@@ -47,7 +47,7 @@ if sys.platform == "darwin":
 elif sys.platform.startswith('linux'):
     # Linux
     TRANSCODER_DIR = "/usr/lib/plexmediaserver/"
-    SETTINGS_PATH  = "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Preferences.xml"
+    SETTINGS_PATH  = "/volume1/Plex/Library/Application Support/Plex Media Server/Preferences.xml"
 else:
     raise NotImplementedError("This platform is not yet supported")
 
@@ -294,7 +294,10 @@ def transcode_local():
     log.info("Launching transcode_local: %s\n" % args)
 
     # Spawn the process
-    proc = subprocess.Popen(args, stderr=subprocess.PIPE)
+    env = dict(os.environ)
+    env['LD_LIBRARY_PATH'] = '/usr/lib/plexmediaserver'
+    env['FFMPEG_EXTERNAL_LIBS'] = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Codecs/c9ea179-1157-linux-ubuntu-x86_64/'
+    proc = subprocess.Popen(args, stderr=subprocess.PIPE, env=env)
 
     while True:
         output = proc.stderr.readline()
