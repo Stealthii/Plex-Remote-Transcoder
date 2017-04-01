@@ -46,8 +46,8 @@ if sys.platform == "darwin":
     SETTINGS_PATH  = "~/Library/Preferences/com.plexapp.plexmediaserver"
 elif sys.platform.startswith('linux'):
     # Linux
-    TRANSCODER_DIR = "/usr/lib/plexmediaserver/"
-    SETTINGS_PATH  = "/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Preferences.xml"
+    TRANSCODER_DIR = "/volume1/@appstore/Plex Media Server"
+    SETTINGS_PATH  = "/volume1/Plex/Library/Application Support/Plex Media Server/Preferences.xml"
 else:
     raise NotImplementedError("This platform is not yet supported")
 
